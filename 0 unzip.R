@@ -11,4 +11,3 @@ unzip(zipfile = "1 R Hacks.zip")
 
 #test connection to Github
 
-list.files(path="1 R Hacks", all.files = T)
