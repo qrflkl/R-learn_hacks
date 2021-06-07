@@ -57,3 +57,35 @@ walk(.x = myzipfile, .f = gunzip, remove = F)
 
 
 walk(.x = myzipfile, .f = safely(gunzip), remove = F)
+
+
+##################################################
+
+zipfiles <-  list.files(path = "Zip files/Excersise Data", full.names = T)
+
+#list.files(path = "Zip files/Excersise Data", pattern = "csv", full.names = T) %>% 
+
+zipfiles
+
+for( n in zipfiles){
+    print(n)
+   gunzip(n, remove=F)
+  
+}
+
+
+# manually remove one of the files
+file.remove("Zip files/Excersise Data/2013.csv")
+
+
+# use Walk() to remove multiple files with certain pattern, e.g. all csvs.
+rm_files <- list.files(path = 'Zip files/Excersise Data/', pattern = 'csv$', full.names = T)
+
+walk(.x = rm_files, .f = file.remove)
+
+
+# unzip all files using walk()
+
+zipfiles
+
+walk(.x = zipfiles,.f = safely(gunzip),remove=F)
