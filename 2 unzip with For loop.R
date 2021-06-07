@@ -67,11 +67,15 @@ zipfiles <-  list.files(path = "Zip files/Excersise Data", full.names = T)
 
 zipfiles
 
+# use for loop to unzip files
 for( n in zipfiles){
     print(n)
    gunzip(n, remove=F)
   
 }
+
+# use walk() to unzip files
+walk(.x = zipfiles,.f = safely(gunzip),remove = F)
 
 
 # manually remove one of the files
