@@ -42,3 +42,18 @@ for( i in myzipfile) {   # i is iteration count
   gunzip(i, remove=F)
   }
 
+
+
+#####################################################
+
+## use walk() to unzip
+
+install.packages("R.utils","tidyverse")
+
+library(R.utils)
+library(tidyverse) 
+
+walk(.x = myzipfile, .f = gunzip, remove = F)
+
+
+walk(.x = myzipfile, .f = safely(gunzip), remove = F)
