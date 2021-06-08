@@ -74,3 +74,63 @@ read_n_write(2018)
 
 2017:2020 %>% 
   walk(.x = ., .f = read_n_write)
+
+
+
+
+#############################################################
+
+###  exercise 3 ##################
+
+#########################################################
+
+# locad the tidyverse library
+
+library(tidyverse)
+
+#Create the 2013 to 2016 sub-folders in the Weather folder using the walk() function
+
+path_13_to_16 <- function(x) {
+  dir.create(paste0('Weather_test/',x))
+}
+
+2013:2016 %>%  walk( path_13_to_16)
+
+
+#3 Create a function that would import 100,000 rows from any of the CSV files in the Exercise data folder
+#and write into the corresponding folders you created in step 2
+
+list.files(path = 'Zip files/',pattern = 'csv$',full.names = T)
+list.files(path = 'Weather_test',full.names = T)
+
+read_write_13_to_16 <- function(x){
+  read_csv(paste0("Zip files/Excersise Data/",x, ".csv"), col_names = F, n_max = 10000) %>% 
+    write_csv(paste0("Weather_test/",x,"/",x,".csv"))
+  
+}
+
+2013:2016 %>% walk(read_write_13_to_16)
+
+
+
+#5  delete those 2013,... 2016 folders
+
+rm_func <- function(x){
+   file.remove(paste0("Weather_test/",x,"/",x,".csv"))
+}
+
+2013:2016 %>% walk(rm_func)
+
+
+#6-8  use copy and paste to do the same
+
+coy_paste <- function(x) {
+  
+  file.copy(from =paste0("Zip files/Excersise Data/",x, ".csv"),
+            to = paste0("Weather_test/",x,"/",x,".csv"))
+}
+
+2013:2016 %>%  walk(coy_paste)
+
+
+unlink('Weather_test',recursive = T)
